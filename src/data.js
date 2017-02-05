@@ -2,11 +2,26 @@ var deals = [];
 
 function create (name, closed, commit, forecast, likely) {
   deals.push({
-    name: name,
-    closed: closed,
-    commit: commit,
-    forecast: forecast,
-    likely: likely
+    name: {
+      content: name,
+      type: String,
+    },
+    closed: {
+      content: closed,
+      type: Number, 
+    },
+    commit: {
+      content: commit,
+      type: Number, 
+    },
+    forecast: {
+      content: forecast,
+      type: Number, 
+    },
+    likely: {
+      content: likely,
+      type: Number, 
+    }
   });
 }
 

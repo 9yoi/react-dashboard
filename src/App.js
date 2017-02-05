@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import data from './data.js';
 
 function Row({name, closed, commit, forecast, likely}) {
   return (
@@ -29,9 +28,10 @@ function Headers(props) {
 
 class App extends Component {
 
-  constructor () {
-    super ();
+  constructor (props) {
+    super (props);
     this.state = {
+      data: this.props.data,
       headers: ['Name', 'Closed', 'Commit', 'Forecast', 'Likely']
     };    
   }
@@ -83,7 +83,7 @@ class App extends Component {
         </div>
         <div className="App-table">
             {this.createHeaders(this.state.headers)}
-            {this.createRow(data)}
+            {this.createRow(this.state.data)}
         </div>
       </div>
     );
