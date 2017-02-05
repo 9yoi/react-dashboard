@@ -14,8 +14,32 @@ function Row({name, closed, commit, forecast, likely}) {
   )
 }
 
+function Headers(props) {
+
+  return (
+    <div className="Row">
+      <div className="Row-header">{props.fields[0]}</div>
+      <div className="Row-header">{props.fields[1]}</div>
+      <div className="Row-header">{props.fields[2]}</div>
+      <div className="Row-header">{props.fields[3]}</div>
+      <div className="Row-header">{props.fields[4]}</div>
+    </div>
+  )
+}
+
 class App extends Component {
+
+  constructor () {
+    super ();
+    this.state = {
+      headers: ['Name', 'Closed', 'Commit', 'Forecast', 'Likely']
+    };    
+  }
   
+  createHeaders (data) {
+      return <Headers fields={data}/>;
+  }
+
   createRow(data) {
     return data.map((person, i) => {
       return <Row 
@@ -52,12 +76,13 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>What is Your Team's Sales Forecast?</h2>
+          <h1>What is Your Team's Sales Forecast?</h1>
         </div>
         <div className="App-summary">
           <h2>Test</h2>
         </div>
         <div className="App-table">
+            {this.createHeaders(this.state.headers)}
             {this.createRow(data)}
         </div>
       </div>

@@ -104,6 +104,13 @@ ul, li
   width: 25%;
 }
 
+.Row-header {
+  font-weight: bold;
+  font-size: 120%;
+  text-align: left;
+  background-color: grey;
+}
+
 .Row-name {
   font-weight: bold;
   text-align: left
@@ -111,5 +118,6 @@ ul, li
 
 .Row-dollar {
   text-align: left;
-
 }
+
+
