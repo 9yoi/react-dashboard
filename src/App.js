@@ -1,19 +1,35 @@
 import React, { Component } from 'react';
 import './App.css';
-import mockData from './data.js';
+import data from './data.js';
 
-console.log(mockData);
+function Row (props) {
+  console.log(props);
+  return (
+    <div className="Row">
+      <ul>
+        <li className="Row-name">{props.value.name}</li>
+        <li className="Row-closed">{props.value.closed}</li>
+        <li className="Row-commit">{props.value.commit}</li>
+        <li className="Row-forecast">{props.value.forecast}</li>
+        <li className="Row-likely">{props.value.likely}</li>
+      </ul>
+    </div>
+  )
+}
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <div className="App-header">
-          <h2>Team Forecast</h2>
+          <h2>What is Your Team's Sales Forecast?</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="App-summary">
+          <h2> Test</h2>
+        </div>
+        <div className="App-table">
+            <Row value={data[0]}/>
+        </div>
       </div>
     );
   }
