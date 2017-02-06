@@ -1,57 +1,78 @@
 import React, { Component } from 'react';
 import './App.css';
 
-function Row({name, closed, commit, forecast, likely}) {
+function Field ({content, type = 'Currency' }) {
   return (
-    <div className="Row">
-      <div className="Row-name">{name}</div>
-      <div className="Row-dollar">{closed}</div>
-      <div className="Row-dollar">{commit}</div>
-      <div className="Row-dollar">{forecast}</div>
-      <div className="Row-dollar">{likely}</div>
+    <div className={`Field ${type}`}> {content} 
     </div>
   )
 }
 
-function Headers(props) {
+// function Row({name, closed, commit, forecast, likely}) {
+//   return (
+//     <div className="test">
+//       <div className="Row-name">{name}</div>
+//       <div className="Row-dollar">{closed}</div>
+//       <div className="Row-dollar">{commit}</div>
+//       <div className="Row-dollar">{forecast}</div>
+//       <div className="Row-dollar">{likely}</div>
+//     </div>
+//   )
+// }
 
-  return (
-    <div className="Row">
-      <div className="Row-header">{props.fields[0]}</div>
-      <div className="Row-header">{props.fields[1]}</div>
-      <div className="Row-header">{props.fields[2]}</div>
-      <div className="Row-header">{props.fields[3]}</div>
-      <div className="Row-header">{props.fields[4]}</div>
-    </div>
-  )
-}
 
 class App extends Component {
 
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     this.state = {
       data: this.props.data,
-      headers: ['Name', 'Closed', 'Commit', 'Forecast', 'Likely']
+      headers: this.getHeaders(this.props.data[0])
     };    
   }
-  
-  createHeaders (data) {
-      return <Headers fields={data}/>;
+
+  //dynamically captures headers depending on input
+  getHeaders (firstSet) {
+    let headers = [];
+    for (var columnName in firstSet) {
+      headers.push(columnName);
+    }
+    return headers;
   }
 
-  createRow(data) {
-    return data.map((person, i) => {
-      return <Row 
-        name={person.name}
-        closed={this.formatCurrency(person.closed)} 
-        commit={this.formatCurrency(person.commit)}
-        forecast={this.formatCurrency(person.forecast)}
-        likely={this.formatCurrency(person.likely)}
-        key={i}
-        />
-    })
+  capitalize(s) {
+    return s.slice(0,1).toUpperCase() + s.slice(1);
   }
+  
+  // creates one row with multiple fields
+  // input: {Name: String, Commit: Number, Forecast: Number ...}
+  createHeader(headers) {
+    var fields = [];
+    headers.forEach((header) => {
+      return fields.push(<Field content={this.capitalize(header)} type='String'/>)
+    });
+    return fields;
+  }
+
+  // createRow(columns) {
+
+  // }
+
+  // // creates multiple rows
+  // // input: Array of salespeople data: [{name: 'name', content: ''}, {} ...]
+  // createRows(people) {
+  //   let headers = this.state.headersKey;
+  //   console.log(headers);
+  //   people.forEach((person) => {
+  //     let info = {};
+  //     headers.forEach((header) => {
+  //       let field = person[header];
+  //       info[field.content] = field.type;
+  //     });
+  //     console.log(info);
+  //     this.createRow(info);
+  //   })
+  // }
 
   formatCurrency(amount) {
     let output = ''
@@ -72,7 +93,9 @@ class App extends Component {
     return '$ ' + output;
   }
 
-  render() {
+  render() {       
+
+    //{this.createRows(this.state.data)}
     return (
       <div className="App">
         <div className="App-header">
@@ -82,8 +105,12 @@ class App extends Component {
           <h2>Test</h2>
         </div>
         <div className="App-table">
-            {this.createHeaders(this.state.headers)}
-            {this.createRow(this.state.data)}
+          <div className="Header">
+            {this.createHeader(this.state.headers)}
+          </div>
+          <div className="Row">
+            
+          </div>
         </div>
       </div>
     );

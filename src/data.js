@@ -4,23 +4,23 @@ function create (name, closed, commit, forecast, likely) {
   deals.push({
     name: {
       content: name,
-      type: String,
+      type: 'String',
     },
     closed: {
       content: closed,
-      type: Number, 
+      type: 'Currency', 
     },
     commit: {
       content: commit,
-      type: Number, 
+      type: 'Currency', 
     },
     forecast: {
       content: forecast,
-      type: Number, 
+      type: 'Currency', 
     },
     likely: {
       content: likely,
-      type: Number, 
+      type: 'Currency', 
     }
   });
 }

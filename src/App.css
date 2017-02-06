@@ -90,7 +90,22 @@ ul, li
 }
 
 .App-table {
-  margin: 10px 10px 10px 10px;
+  margin: 10px;
+  flex-direction: column;
+}
+
+.Header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 120%;
+  text-align: left;
+  background-color: grey;
+}
+
+.Header .Field {
+  width: 25%;
 }
 
 .Row {
@@ -104,12 +119,6 @@ ul, li
   width: 25%;
 }
 
-.Row-header {
-  font-weight: bold;
-  font-size: 120%;
-  text-align: left;
-  background-color: grey;
-}
 
 .Row-name {
   font-weight: bold;
