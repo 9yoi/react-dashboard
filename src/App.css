@@ -99,7 +99,6 @@ ul, li
   flex-direction: row;
   justify-content: space-between;
   font-weight: bold;
-  font-size: 120%;
   text-align: left;
   background-color: grey;
 }
@@ -117,16 +116,12 @@ ul, li
 
 .Row .Field {
   width: 25%;
-}
-
-
-.Row-name {
-  font-weight: bold;
-  text-align: left
-}
-
-.Row-dollar {
   text-align: left;
 }
+
+.Row .String {
+  font-weight: bold;
+}
+
 
 

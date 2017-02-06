@@ -1,27 +1,54 @@
 import React, { Component } from 'react';
 import './App.css';
 
+
+// Field Component. Every table cell is a Field.
 function Field ({content, type = 'Currency' }) {
+
+  // helper function to format numbers into dollars
+  const formatCurrency = function (amount) {
+    let output = ''
+    let str = String(amount);
+    if(str.length <= 3) {
+      return '$ ' + str;
+    }
+    let counter = 1;
+    for (var i = str.length - 1; i >= 0; i--) {
+      if (counter === 3 && i !==0) {
+        output = ',' + str[i] + output;
+        counter = 0;
+      } else {
+        output = str[i] + output;
+        counter ++;
+      }
+    }
+    return '$ ' + output;
+  }
+
+  // if currency, format it. else return parameter as is.
+  let output = '';
+  type === 'Currency' ? output =  formatCurrency(content) : output = content;
+
   return (
-    <div className={`Field ${type}`}> {content} 
-    </div>
+    <div className={`Field ${type}`}> {output} </div>
   )
 }
 
-function Row ({fields, keys}) {
-  // extracts content for rows based on header order
-  // input: one row of data in object form -> {name: 'John', commit: '1000'}
-  const createRow = function (columns, keys){
-    return keys.map((key) => {
-      return <Field content={columns[key].content} type={columns[key].type}/>
+// Row Component. Extracts fields for rows based on header order
+// fields: one row of data in object form -> {name: 'John', commit: '1000'}
+// keys: header
+function Row ({fields, headers}) {
+  const createRow = function (columns, headers){
+    return headers.map((header) => {
+      return <Field content={columns[header].content} type={columns[header].type}/>
     });
   }
 
   return (
     <div className="Row">
-      {createRow(fields, keys)}
+      {createRow(fields, headers)}
     </div>
-  )
+  )  
 }
 
 class App extends Component {
@@ -59,31 +86,12 @@ class App extends Component {
 
   // creates multiple rows
   // input: Array of salespeople data: [{name: 'name', content: ''}, {} ...]
-  createRows(people, keys) {
+  createRows(people, headers) {
     let rows = [];
     people.forEach((person) => {
-      rows.push(<Row fields={person} keys={keys}/>);
+      rows.push(<Row fields={person} headers={headers}/>);
     })
     return rows;
-  }
-
-  formatCurrency(amount) {
-    let output = ''
-    let str = String(amount);
-    if(str.length <= 3) {
-      return '$ ' + str;
-    }
-    let counter = 1;
-    for (var i = str.length - 1; i >= 0; i--) {
-      if (counter === 3 && i !==0) {
-        output = ',' + str[i] + output;
-        counter = 0;
-      } else {
-        output = str[i] + output;
-        counter ++;
-      }
-    }
-    return '$ ' + output;
   }
 
   render() {       
