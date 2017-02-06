@@ -16,6 +16,7 @@ Built with React.js
 * Fields are dynamically generated based on input
 * Headers are created by parsing the input for content title
 * Data fields are then extracted based on the header title
+* Smart Formatting. Conversion of data (e.g. from number to currency) is dynamic and based on input field type
 
 ## Component Hierachy
 ----
