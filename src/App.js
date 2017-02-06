@@ -54,25 +54,26 @@ class App extends Component {
     return fields;
   }
 
-  // createRow(columns) {
+  // extracts content for rows based on header order
+  // input: one row of data in object form -> {name: 'John', commit: '1000'}
+  createRow(columns) {
+    const keys = this.state.headers;
+    let rows = [];
+    keys.forEach((key) => {
+      rows.push(<Field content={columns[key].content} type={columns[key].type}/>)
+    })
+    return rows;
+  }
 
-  // }
-
-  // // creates multiple rows
-  // // input: Array of salespeople data: [{name: 'name', content: ''}, {} ...]
-  // createRows(people) {
-  //   let headers = this.state.headersKey;
-  //   console.log(headers);
-  //   people.forEach((person) => {
-  //     let info = {};
-  //     headers.forEach((header) => {
-  //       let field = person[header];
-  //       info[field.content] = field.type;
-  //     });
-  //     console.log(info);
-  //     this.createRow(info);
-  //   })
-  // }
+  // creates multiple rows
+  // input: Array of salespeople data: [{name: 'name', content: ''}, {} ...]
+  createRows(people) {
+    let rows = [];
+    people.forEach((person) => {
+      rows.push(this.createRow(person));
+    })
+    return rows;
+  }
 
   formatCurrency(amount) {
     let output = ''
@@ -94,8 +95,6 @@ class App extends Component {
   }
 
   render() {       
-
-    //{this.createRows(this.state.data)}
     return (
       <div className="App">
         <div className="App-header">
@@ -109,7 +108,7 @@ class App extends Component {
             {this.createHeader(this.state.headers)}
           </div>
           <div className="Row">
-            
+            {this.createRows(this.state.data)}
           </div>
         </div>
       </div>
