@@ -94,7 +94,7 @@ ul, li
   flex-direction: column;
 }
 
-.Header {
+.App-table .Header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -115,7 +115,7 @@ ul, li
   margin: 5px;
 }
 
-.Row div {
+.Row .Field {
   width: 25%;
 }
 
