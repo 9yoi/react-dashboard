@@ -1,47 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
+import { Field, Summary, Row } from '../components/Field.js';
+import '../css/App.css';
 import {formatCurrency, capitalize} from './helpers.js';
-
-// Field Component. Every table cell is a Field.
-function Field ({content, type = 'currency' }) {
-  // if currency, format it. else return parameter as is.
-  let output = '';
-  if (type === 'currency') {
-    output =  formatCurrency(content);
-  } else {
-    output = content;
-  }
-
-  return (
-    <div className={`field ${type}`}> {output} </div>
-  )
-} 
-
-// Row Component. Extracts fields for rows based on header order
-// fields: one row of data in object form -> {name: 'John', commit: '1000'}
-function Row ({fields, headers}) {
-  const createRow = function (columns, headers){
-    return headers.map((header) => {
-      return <Field content={columns[header].content} type={columns[header].type}/>
-    });
-  }
-
-  return (
-    <div className="row">
-      {createRow(fields, headers)}
-    </div>
-  )  
-}
-
-// Summary Component. Sums up row values to report team total
-function Summary ({name, value}) {
-  return (
-    <div className="summmary-part">
-      <div className="summary-header">{name} </div>
-      <div className="summary-value">{value} </div>
-    </div>
-  )
-}
 
 class App extends Component {
 
