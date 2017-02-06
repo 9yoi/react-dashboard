@@ -1,19 +1,32 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {formatCurrency} from '../js/helpers.js';
 
 // Field Component. Every table cell is a Field.
-export function Field ({content, type = 'currency' }) {
-  // if currency, format it. else return parameter as is.
-  let output = '';
-  if (type === 'currency') {
-    output =  formatCurrency(content);
-  } else {
-    output = content;
+export class Field extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      content: this.props.content,
+      type: this.props.type,
+      display: this.handleFormatting(this.props.content, this.props.type)
+    } 
   }
 
-  return (
-    <div className={`field ${type}`}> {output} </div>
-  )
+  handleFormatting (content, type) {
+    if (type === 'currency') {
+      content =  formatCurrency(content);
+    }
+    return content;
+  }
+  // if currency, format it. else return parameter as is.
+  render () {
+    return (
+      <div className={`field ${this.state.type}`}>
+        {this.state.display} 
+      </div>
+    )
+  }
 } 
 
 // Row Component. Extracts fields for rows based on header order
