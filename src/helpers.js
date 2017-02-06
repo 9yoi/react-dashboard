@@ -5,11 +5,11 @@ export function formatCurrency (amount) {
   if(str.length <= 3) {
     return '$ ' + str;
   }
-  let counter = 1;
+  let counter = 0;
   for (var i = str.length - 1; i >= 0; i--) {
-    if (counter === 3 && i !==0) {
-      output = ',' + str[i] + output;
-      counter = 0;
+    if (counter === 3) {
+      output = str[i] + ',' + output;
+      counter = 1;
     } else {
       output = str[i] + output;
       counter ++;
