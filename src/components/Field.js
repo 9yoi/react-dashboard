@@ -7,11 +7,14 @@ export class Field extends Component {
   
   constructor(props) {
     super(props);
+    this.handleChange = this.handleChange.bind(this); 
+    this.handleSubmit = this.handleSubmit.bind(this);
+    
     this.state = {
       content: this.props.content,
       type: this.props.type,
       display: this.handleFormatting(this.props.content, this.props.type)
-    } 
+    }
   }
 
   // if currency, format it. else return parameter as is.
@@ -22,22 +25,26 @@ export class Field extends Component {
     return content;
   }
 
-  handleClick (e) {
-    console.log(e.target, 'e');
-    console.log(e.target.value, 'e');
-    console.log(e.target.getAttribute('value'));
-    console.log(e, 'e');
+  handleChange (e) {
+    let editedVal = e.target.value;
+    this.setState({content: editedVal});
+  }
+
+  handleSubmit (e) {
+    console.log(`A change was submitted:${this.state.content}`);
   }
 
   render () {
     return (
-      <div 
-      className={`field ${this.state.type}`}
-      onClick={this.handleClick}
-      value={this.state.content}
-      >
-        {this.state.display} 
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <input
+        className={`field ${this.state.type}`}
+        onChange={this.handleChange}
+        key={this.state.content}
+        value={this.state.display}
+        >
+        </input>
+      </form>
     )
   }
 } 
