@@ -32,12 +32,8 @@ function Row ({fields, headers}) {
 function Summary ({name, value}) {
   return (
     <div className="summmary-part">
-      <div className="summary-header">
-      {name}
-      </div>
-       <div className="summary-value">
-      {value}
-      </div>
+      <div className="summary-header">{name} </div>
+      <div className="summary-value">{value} </div>
     </div>
   )
 }
@@ -48,7 +44,8 @@ class App extends Component {
     super(props);
     this.state = {
       data: this.props.data,
-      headers: this.getHeaders(this.props.data[0])
+      headers: this.getHeaders(this.props.data[0]),
+      summary: this.createSummary(this.props.data)
     };    
   }
 
@@ -93,7 +90,11 @@ class App extends Component {
       likely += person.likely.content;
     });
 
-    return <Summary name='closed' value={formatCurrency(closed)}/>
+    return {
+      closed: formatCurrency(closed),
+      commit: formatCurrency(commit),
+      likely: formatCurrency(likely)
+    }
   }
 
   render() {       
@@ -103,7 +104,9 @@ class App extends Component {
           <h1>What is Your Team's Sales Forecast?</h1>
         </div>
         <div className="app-summary">
-          {this.createSummary(this.state.data)}
+          <Summary name='Closed' value={this.state.summary.closed}/>
+          <Summary name='Commit' value={this.state.summary.commit}/>
+          <Summary name='Most Likely' value={this.state.summary.likely}/>
         </div>
         <div className="app-table">
           <div className="header row">

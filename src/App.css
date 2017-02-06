@@ -81,17 +81,32 @@ ul, li
 }
 
 .app-header {
-  margin-top: 10px;
+  margin-top: 20px;
   color: #5cc5e3;
   font-size: 2em;
 }
 
 .app-summary {
-  margin-top: 10px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+  border: solid 1px #f1f1f1;
+  height: 5em;
 }
 
+.summary-header {
+  font-weight: bold;
+}
+
+.summary-value {
+  color: red;
+  font-size: 2em;
+}
 .app-table {
-  margin-top: 10px;
+  margin-top: 20px;
   flex-direction: column;
 }
 
