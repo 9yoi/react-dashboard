@@ -72,56 +72,57 @@ ul, li
     font-weight: inherit;
 }
 
-.App {
+.app {
   height: 100vh;
-  margin: 10px;
-  text-align: center;
+  margin: 15px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.App-header {
+.app-header {
+  margin-top: 10px;
+  color: #5cc5e3;
+  font-size: 2em;
+}
+
+.app-summary {
   margin-top: 10px;
 }
 
-.App-summary {
+.app-table {
   margin-top: 10px;
-}
-
-.App-table {
-  margin: 10px;
   flex-direction: column;
 }
 
-.App-table .Header {
+.header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   font-weight: bold;
   text-align: left;
-  background-color: grey;
+  background-color: #f1f1f1;
+  height: 2em;
 }
 
-.Header .Field {
-  width: 25%;
-}
-
-.Row {
+.row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  text-align: left;
+  align-items: center;
   margin: 5px;
+  line-height: 1.5em;
 }
 
-.Row .Field {
-  width: 25%;
-  text-align: left;
-}
-
-.Row .String {
+.row .string {
   font-weight: bold;
 }
+
+.field {
+  width: 25%;
+}
+
 
 
 

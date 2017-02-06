@@ -3,7 +3,7 @@ import './App.css';
 
 
 // Field Component. Every table cell is a Field.
-function Field ({content, type = 'Currency' }) {
+function Field ({content, type = 'currency' }) {
 
   // helper function to format numbers into dollars
   const formatCurrency = function (amount) {
@@ -27,16 +27,15 @@ function Field ({content, type = 'Currency' }) {
 
   // if currency, format it. else return parameter as is.
   let output = '';
-  type === 'Currency' ? output =  formatCurrency(content) : output = content;
+  type === 'currency' ? output =  formatCurrency(content) : output = content;
 
   return (
-    <div className={`Field ${type}`}> {output} </div>
+    <div className={`field ${type}`}> {output} </div>
   )
-}
+} 
 
 // Row Component. Extracts fields for rows based on header order
 // fields: one row of data in object form -> {name: 'John', commit: '1000'}
-// keys: header
 function Row ({fields, headers}) {
   const createRow = function (columns, headers){
     return headers.map((header) => {
@@ -45,7 +44,7 @@ function Row ({fields, headers}) {
   }
 
   return (
-    <div className="Row">
+    <div className="row">
       {createRow(fields, headers)}
     </div>
   )  
@@ -79,7 +78,7 @@ class App extends Component {
   createHeader(headers) {
     var fields = [];
     headers.forEach((header) => {
-      return fields.push(<Field content={this.capitalize(header)} type='String'/>)
+      return fields.push(<Field content={this.capitalize(header)} type='string'/>)
     });
     return fields;
   }
@@ -96,18 +95,18 @@ class App extends Component {
 
   render() {       
     return (
-      <div className="App">
-        <div className="App-header">
+      <div className="app">
+        <div className="app-header">
           <h1>What is Your Team's Sales Forecast?</h1>
         </div>
-        <div className="App-summary">
+        <div className="app-summary">
           <h2>Test</h2>
         </div>
-        <div className="App-table">
-          <div className="Header">
+        <div className="app-table">
+          <div className="header row">
             {this.createHeader(this.state.headers)}
           </div>
-          <div className="Rows">
+          <div className="rows">
             {this.createRows(this.state.data, this.state.headers)} 
           </div>
         </div>
