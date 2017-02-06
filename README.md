@@ -3,7 +3,7 @@ Built with React.js
 
 ## Screenshot
 ----
-![Dashboard image]("./dashboardScreenshot.jpg")
+![Dashboard image]<img src="./dashboardScreenshot.jpg">
 
 ## Usage
 ----
