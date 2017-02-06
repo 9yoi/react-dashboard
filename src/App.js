@@ -1,30 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import {formatCurrency, capitalize} from './helpers.js';
 
 // Field Component. Every table cell is a Field.
 function Field ({content, type = 'currency' }) {
-
-  // helper function to format numbers into dollars
-  const formatCurrency = function (amount) {
-    let output = ''
-    let str = String(amount);
-    if(str.length <= 3) {
-      return '$ ' + str;
-    }
-    let counter = 1;
-    for (var i = str.length - 1; i >= 0; i--) {
-      if (counter === 3 && i !==0) {
-        output = ',' + str[i] + output;
-        counter = 0;
-      } else {
-        output = str[i] + output;
-        counter ++;
-      }
-    }
-    return '$ ' + output;
-  }
-
   // if currency, format it. else return parameter as is.
   let output = '';
   type === 'currency' ? output =  formatCurrency(content) : output = content;
@@ -50,6 +29,19 @@ function Row ({fields, headers}) {
   )  
 }
 
+function Summary ({name, value}) {
+  return (
+    <div className="summmary-part">
+      <div className="summary-header">
+      {name}
+      </div>
+       <div className="summary-value">
+      {value}
+      </div>
+    </div>
+  )
+}
+
 class App extends Component {
 
   constructor(props) {
@@ -68,17 +60,13 @@ class App extends Component {
     }
     return headers;
   }
-
-  capitalize(s) {
-    return s.slice(0,1).toUpperCase() + s.slice(1);
-  }
   
   // creates one row with multiple fields
   // input: {Name: String, Commit: Number, Forecast: Number ...}
   createHeader(headers) {
     var fields = [];
     headers.forEach((header) => {
-      return fields.push(<Field content={this.capitalize(header)} type='string'/>)
+      return fields.push(<Field content={capitalize(header)} type='string'/>)
     });
     return fields;
   }
@@ -93,6 +81,21 @@ class App extends Component {
     return rows;
   }
 
+  //sums values up for dashboard
+  createSummary (people) {
+    let closed = 0;
+    let commit = 0;
+    let likely = 0;
+
+    people.forEach((person) => {
+      closed += person.closed.content;
+      commit += person.commit.content;
+      likely += person.likely.content;
+    });
+
+    return <Summary name='closed' value={formatCurrency(closed)}/>
+  }
+
   render() {       
     return (
       <div className="app">
@@ -100,7 +103,7 @@ class App extends Component {
           <h1>What is Your Team's Sales Forecast?</h1>
         </div>
         <div className="app-summary">
-          <h2>Test</h2>
+          {this.createSummary(this.state.data)}
         </div>
         <div className="app-table">
           <div className="header row">
