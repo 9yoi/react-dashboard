@@ -6,7 +6,11 @@ import {formatCurrency, capitalize} from './helpers.js';
 function Field ({content, type = 'currency' }) {
   // if currency, format it. else return parameter as is.
   let output = '';
-  type === 'currency' ? output =  formatCurrency(content) : output = content;
+  if (type === 'currency') {
+    output =  formatCurrency(content);
+  } else {
+    output = content;
+  }
 
   return (
     <div className={`field ${type}`}> {output} </div>
@@ -29,6 +33,7 @@ function Row ({fields, headers}) {
   )  
 }
 
+// Summary Component. Sums up row values to report team total
 function Summary ({name, value}) {
   return (
     <div className="summmary-part">
@@ -78,7 +83,7 @@ class App extends Component {
     return rows;
   }
 
-  //sums values up for dashboard
+  //sums values up for team total
   createSummary (people) {
     let closed = 0;
     let commit = 0;

@@ -110,7 +110,7 @@ ul, li
   flex-direction: column;
 }
 
-.header {
+.app-table .header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -120,7 +120,7 @@ ul, li
   height: 2em;
 }
 
-.row {
+.app-table .row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -130,11 +130,11 @@ ul, li
   line-height: 1.5em;
 }
 
-.row .string {
+.app-table .row .string {
   font-weight: bold;
 }
 
-.field {
+.app-table .field {
   width: 25%;
 }
 
