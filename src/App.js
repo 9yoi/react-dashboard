@@ -9,7 +9,6 @@ function Field ({content, type = 'Currency' }) {
 }
 
 function Row ({fields, keys}) {
-
   // extracts content for rows based on header order
   // input: one row of data in object form -> {name: 'John', commit: '1000'}
   const createRow = function (columns, keys){
@@ -60,10 +59,10 @@ class App extends Component {
 
   // creates multiple rows
   // input: Array of salespeople data: [{name: 'name', content: ''}, {} ...]
-  createRows(people) {
+  createRows(people, keys) {
     let rows = [];
     people.forEach((person) => {
-      rows.push(this.createRow(person));
+      rows.push(<Row fields={person} keys={keys}/>);
     })
     return rows;
   }
@@ -101,7 +100,7 @@ class App extends Component {
             {this.createHeader(this.state.headers)}
           </div>
           <div className="Rows">
-            <Row fields={this.state.data[0]} keys={this.state.headers}/> 
+            {this.createRows(this.state.data, this.state.headers)} 
           </div>
         </div>
       </div>
