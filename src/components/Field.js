@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {formatCurrency} from '../js/helpers.js';
+import data from '../js/data.js';
 
 // Field Component. Every table cell is a Field.
 // Field id: salesperson + field key (e.g. John, commit)
@@ -9,11 +10,15 @@ export class Field extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this); 
     this.handleSubmit = this.handleSubmit.bind(this);
-    
+    this.toggleDisplay = this.toggleDisplay.bind(this);
+
     this.state = {
+      salesperson: this.props.salesperson,
+      field: this.props.field,
       content: this.props.content,
       type: this.props.type,
-      display: this.handleFormatting(this.props.content, this.props.type)
+      display: this.handleFormatting(this.props.content, this.props.type),
+      edit: false
     }
   }
 
@@ -25,13 +30,35 @@ export class Field extends Component {
     return content;
   }
 
+  toggleDisplay () {
+    if (this.state.edit) {
+      let formatted = this.handleFormatting(this.props.content, this.props.type);
+      this.setState({display: formatted})
+    } else {
+      this.setState({display: this.state.content})
+    }
+    this.setState({edit: !this.state.edit})
+  }
+
   handleChange (e) {
-    let editedVal = e.target.value;
-    this.setState({content: editedVal});
+    this.setState({display: e.target.value});
   }
 
   handleSubmit (e) {
-    console.log(`A change was submitted:${this.state.content}`);
+    console.log(`A change was submitted:${this.state.display}`);
+    let update = this.state.display;
+    let field = this.state.field;
+    let salesperson = this.state.salesperson;
+
+    // save into data. not optimal => look into new data structure.
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].name.content === salesperson) {
+        console.log('updating', update)
+        data[i][field].content = update;
+        break;
+      }
+    }
+    this.toggleDisplay();
   }
 
   render () {
@@ -39,8 +66,8 @@ export class Field extends Component {
       <form onSubmit={this.handleSubmit}>
         <input
         className={`field ${this.state.type}`}
+        onFocus={this.toggleDisplay}
         onChange={this.handleChange}
-        key={this.state.content}
         value={this.state.display}
         >
         </input>
@@ -54,7 +81,12 @@ export class Field extends Component {
 export function Row ({fields, headers}) {
   const createRow = function (columns, headers){
     return headers.map((header) => {
-      return <Field content={columns[header].content} type={columns[header].type}/>
+      return <Field 
+        content={columns[header].content}
+        type={columns[header].type}
+        salesperson={fields.name.content}
+        field={header}
+        />
     });
   }
 
